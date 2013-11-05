@@ -27,6 +27,10 @@ class AvailSchedule extends StudipPlugin implements SystemPlugin
     {
         parent::__construct();
 
+        if (!$this->isActivated()) {
+            return;
+        }
+
         $seminar_id = Request::option('cid', $GLOBALS['SeminarSession']);
 
         $sem = Seminar::getInstance($seminar_id);
