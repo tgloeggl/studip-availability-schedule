@@ -27,19 +27,12 @@ class AvailSchedule extends StudipPlugin implements SystemPlugin
     {
         parent::__construct();
 
-        if (!$this->isActivated()) {
-            return;
-        }
+        $sem_type = $_SESSION['SessSemName']['art_num'];
 
-        $seminar_id = Request::option('cid', $GLOBALS['SeminarSession']);
-
-        $sem = Seminar::getInstance($seminar_id);
-        
-        if (in_array($sem->status, studygroup_sem_types()) === false) {
-            if (Navigation::hasItem('/course/members') && $GLOBALS['perm']->have_studip_perm('tutor', $seminar_id)) {
-                $navigation = Navigation::getItem('/course/members');
-                $navigation->addSubNavigation('conflicts', new Navigation(_('Verfügbarkeit'), PluginEngine::getLink('availschedule/show')));
-            }
+        if (isset($sem_type) && !$GLOBALS['SEM_CLASS'][$GLOBALS['SEM_TYPE'][$sem_type]]->studygroup_mode &&
+            Navigation::hasItem('/course/members') && $GLOBALS['perm']->have_studip_perm('tutor', $_SESSION['SessSemName'][1])) {
+            $navigation = Navigation::getItem('/course/members');
+            $navigation->addSubNavigation('conflicts', new Navigation(_('Verfügbarkeit'), PluginEngine::getLink('availschedule/show')));
         }
     }
 
