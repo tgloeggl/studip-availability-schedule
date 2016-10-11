@@ -20,39 +20,43 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 
 ?>
 <table border="0" cellspacing="0" cellpadding="0" width="100%">
-	<tr>
-		<td class="blank" align="center">
-			<br/>
-			<?
-			$semester = new SemesterData();
-			$all_semester = $semester->getAllSemesterData();
-			if (!$really) { ?>
-			<b>
-			Sie k&ouml;nnen sich einen sogenannten Verf&uuml;gbarkeitsplan anzeigen lassen.<br/>
-			Es handelt sich dabei um eine Wochen&uuml;bersicht, worauf sie erkennen k&ouml;nnen 
-			wieviele ihrer Teilnehmer zu den jeweiligen Zeiten andere Veranstaltungen belegen.<br/>
-			<br/>
-			Klicken Sie auf ein Semester, um sich daf&uuml;r diesen Verf&uuml;gbarkeitsplan anzeigen zu lassen:<br/>
-			<?
-				foreach ($all_semester as $key => $val) {
-					if ($val['ende'] >= time()) {
-						echo '<a href="' . URLHelper::getLink('?really=yes&semester_id=' . $key) .'">' . $val['name'] . '</a>';
-						echo '&nbsp;&nbsp;|&nbsp;&nbsp;';						
-					}
-				}
-			?>
-			</b><br/>
-			<br/>
-			<? } else {
-				flush();
-				$plan = createPlanData(Request::get('cid'), $all_semester[$semester_id]['beginn']);
-			    printTable($plan, $all_semester[$semester_id]['name']);
-				flush();
-				echo "<br/><br/>";
-				printList($plan);
-			}
-			?>
-			<br/>
-		</td>
-	</tr>
+    <tr>
+        <td class="blank" align="center">
+            <br/>
+            <?
+            $semester = new SemesterData();
+            $all_semester = $semester->getAllSemesterData();
+            if (!$really) { ?>
+            <b>
+            Sie k&ouml;nnen sich einen sogenannten Verf&uuml;gbarkeitsplan anzeigen lassen.<br/>
+            Es handelt sich dabei um eine Wochen&uuml;bersicht, worauf sie erkennen k&ouml;nnen
+            wieviele ihrer Teilnehmer zu den jeweiligen Zeiten andere Veranstaltungen belegen.<br/>
+            <br/>
+            Klicken Sie auf ein Semester, um sich daf&uuml;r diesen Verf&uuml;gbarkeitsplan anzeigen zu lassen:<br/>
+            <?
+                foreach ($all_semester as $key => $val) {
+                    if ($val['ende'] >= time()) {
+                        echo '<a href="' . URLHelper::getLink('?really=yes&semester_id=' . $key) .'">' . $val['name'] . '</a>';
+                        echo '&nbsp;&nbsp;|&nbsp;&nbsp;';
+                    }
+                }
+            ?>
+            </b><br/>
+            <br/>
+            <? } else {
+                flush();
+                $plan = createPlanData(Request::get('cid'), $all_semester[$semester_id]['beginn']);
+                if (!$plan) {
+                    echo MessageBox::error('Sie können dieses Tool nur nutzen, wenn Sie mehr als 5 Teilnehmer in ihrer Veranstaltung haben!');
+                } else {
+                    printTable($plan, $all_semester[$semester_id]['name']);
+                    flush();
+                    echo "<br/><br/>";
+                    printList($plan);
+                }
+            }
+            ?>
+            <br/>
+        </td>
+    </tr>
 </table>
