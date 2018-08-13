@@ -7,7 +7,7 @@
  * published by the Free Software Foundation; either version 2 of
  * the License, or (at your option) any later version.
  *
- * @author      Till Glöggler <till.gloeggler@elan-ev.de>
+ * @author      Till GlÃ¶ggler <till.gloeggler@elan-ev.de>
  * @copyright   2013 ELAN e.V. <http://www.elan-ev.de>
  * @license     http://www.gnu.org/licenses/gpl-2.0.html GPL version 2
  * @category    Stud.IP
@@ -32,19 +32,20 @@ class AvailSchedule extends StudipPlugin implements SystemPlugin
         if (isset($sem_type) && !$GLOBALS['SEM_CLASS'][$GLOBALS['SEM_TYPE'][$sem_type]['class']]['studygroup_mode'] &&
             Navigation::hasItem('/course/members') && $GLOBALS['perm']->have_studip_perm('tutor', $_SESSION['SessSemName'][1])) {
             $navigation = Navigation::getItem('/course/members');
-            $navigation->addSubNavigation('conflicts', new Navigation(_('Verfügbarkeit'), PluginEngine::getLink('availschedule/show')));
+            $navigation->addSubNavigation('conflicts', new Navigation(_('VerfÃ¼gbarkeit'), PluginEngine::getLink('availschedule/show')));
         }
     }
 
 
-    function show_action() {
+    function show_action()
+    {
         $seminar_id = Request::option('cid');
 
         if (!$seminar_id || !$GLOBALS['perm']->have_studip_perm('tutor', $seminar_id)) {
             die;
         }
 
-        PageLayout::setTitle($GLOBALS['SessSemName']['header_line'] . ' - ' . _('Verfügbarkeitsplan'));
+        PageLayout::setTitle($GLOBALS['SessSemName']['header_line'] . ' - ' . _('VerfÃ¼gbarkeitsplan'));
         Navigation::activateItem('/course/members/conflicts');
 
         $template_path = $this->getPluginPath() . '/templates';
