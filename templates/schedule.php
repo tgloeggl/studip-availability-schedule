@@ -1,7 +1,7 @@
 <?php
 /*
-teilnehmer_conflicts.php - Verf�gbarkeitsanzeige der Teilnehmer eines Seminares
-Copyright (C) 2005-2013 Marco Diedrich <marco.diedrich@uni-osnabrueck.de>, Till Gl�ggler <till.gloeggler@uni-osnabrueck.de>
+teilnehmer_conflicts.php - Verfügbarkeitsanzeige der Teilnehmer eines Seminares
+Copyright (C) 2005-2013 Marco Diedrich <marco.diedrich@uni-osnabrueck.de>, Till Glöggler <till.gloeggler@uni-osnabrueck.de>
 
 This program is free software; you can redistribute it and/or
 modify it under the terms of the GNU General Public License
@@ -28,11 +28,11 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
             $all_semester = $semester->getAllSemesterData();
             if (!$really) { ?>
             <b>
-            Sie k&ouml;nnen sich einen sogenannten Verf&uuml;gbarkeitsplan anzeigen lassen.<br/>
-            Es handelt sich dabei um eine Wochen&uuml;bersicht, worauf sie erkennen k&ouml;nnen
+            Sie können sich einen sogenannten Verfügbarkeitsplan anzeigen lassen.<br/>
+            Es handelt sich dabei um eine Wochenübersicht, worauf sie erkennen können
             wieviele ihrer Teilnehmer zu den jeweiligen Zeiten andere Veranstaltungen belegen.<br/>
             <br/>
-            Klicken Sie auf ein Semester, um sich daf&uuml;r diesen Verf&uuml;gbarkeitsplan anzeigen zu lassen:<br/>
+            Klicken Sie auf ein Semester, um sich dafür diesen Verfügbarkeitsplan anzeigen zu lassen:<br/>
             <?
                 foreach ($all_semester as $key => $val) {
                     if ($val['ende'] >= time()) {
@@ -47,7 +47,7 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
                 flush();
                 $plan = createPlanData(Request::get('cid'), $all_semester[$semester_id]['beginn']);
                 if (!$plan) {
-                    echo MessageBox::error('Sie k�nnen dieses Tool nur nutzen, wenn Sie mehr als 5 Teilnehmer in ihrer Veranstaltung haben!');
+                    echo MessageBox::error('Sie können dieses Tool nur nutzen, wenn Sie mehr als 5 Teilnehmer in ihrer Veranstaltung haben!');
                 } else {
                     printTable($plan, $all_semester[$semester_id]['name']);
                     flush();
