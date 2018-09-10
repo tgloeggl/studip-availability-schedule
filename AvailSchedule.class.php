@@ -27,10 +27,10 @@ class AvailSchedule extends StudipPlugin implements SystemPlugin
     {
         parent::__construct();
 
-        $sem_type = $_SESSION['SessSemName']['art_num'];
+        $sem_type = Context::getArtNum();
 
         if (isset($sem_type) && !$GLOBALS['SEM_CLASS'][$GLOBALS['SEM_TYPE'][$sem_type]['class']]['studygroup_mode'] &&
-            Navigation::hasItem('/course/members') && $GLOBALS['perm']->have_studip_perm('tutor', $_SESSION['SessSemName'][1])) {
+            Navigation::hasItem('/course/members') && $GLOBALS['perm']->have_studip_perm('tutor', Context::getId())) {
             $navigation = Navigation::getItem('/course/members');
             $navigation->addSubNavigation('conflicts', new Navigation(_('Verfügbarkeit'), PluginEngine::getLink('availschedule/show')));
         }
@@ -39,13 +39,13 @@ class AvailSchedule extends StudipPlugin implements SystemPlugin
 
     function show_action()
     {
-        $seminar_id = Request::option('cid');
+        $seminar_id = Context::getId();
 
         if (!$seminar_id || !$GLOBALS['perm']->have_studip_perm('tutor', $seminar_id)) {
             die;
         }
 
-        PageLayout::setTitle($GLOBALS['SessSemName']['header_line'] . ' - ' . _('Verfügbarkeitsplan'));
+        PageLayout::setTitle(Context::getHeaderLine() . ' - ' . _('Verfügbarkeitsplan'));
         Navigation::activateItem('/course/members/conflicts');
 
         $template_path = $this->getPluginPath() . '/templates';
