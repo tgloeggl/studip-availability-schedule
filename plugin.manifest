@@ -1,7 +1,6 @@
 pluginclassname=AvailSchedule
 pluginname=AvailabilitySchedule
 origin=elan-ev
-version=0.2
-
-studipMinVersion=4.0
-studipMaxVersion=4.2
+version=0.3
+studipMinVersion=5.0
+studipMaxVersion=5.0.99

@@ -15,7 +15,6 @@
 
 require_once 'lib/raumplan/draw_raumPlan.php';
 require_once 'lib/raumplan/ConflictCounter.class.php';
-require_once 'lib/classes/SemesterData.class.php';
 
 class AvailSchedule extends StudipPlugin implements SystemPlugin
 {

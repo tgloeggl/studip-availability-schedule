@@ -24,8 +24,7 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
         <td class="blank">
             <br/>
             <?
-            $semester = new SemesterData();
-            $all_semester = $semester->getAllSemesterData();
+            $all_semester = Semester::getAll();
             if (!$really) { ?>
             <b>
             Sie können sich einen sogenannten Verfügbarkeitsplan anzeigen lassen.<br/>
